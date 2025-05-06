@@ -6,8 +6,7 @@ async def configure_db(app: FastAPI):
         app=app,
         config={
         'connections': {
-        #'default': 'postgres://postgres:qwerty123@localhost:5432/test'
-        'default': 'sqlite://db.sqlite3'
+        'default': 'postgres://postgres:qwerty123@localhost:5432/test'
         },
         'apps': {
         'my_app': {
