@@ -1,0 +1,19 @@
+Integrar com o tortoise + PostgreSQL
+- Configuração de conexão com o banco de dados
+
+Criar o model do "Projeto"
+- # models.py
+ class Project(Base):
+    __tablename__ = "projects"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    description = Column(Text)
+    status = Column(String, default="ativo")  # Ex: ativo, pausado, finalizado
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+Criar rotas:
+- Listar todos os projetos
+- Obter detalhes de um projeto específico 
+- Criar um novo projeto 
+- Editar um projeto existente 
+- deletar um projeto
