@@ -7,16 +7,3 @@ class add_project(Model):
     description = fields.TextField()
     status = fields.TextField()  # Ex: ativo, pausado, finalizado
     created_at = fields.DatetimeField(auto_now = True)
-
-
-class get_projects(Model, id):
-    id = id
-
-class put_Project(Model, id):
-    id = id
-
-class get_Project(Model, id):
-    id = id
-
-class del_project(Model, id):
-    id = id

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class add_project(BaseModel):
+class addProject(BaseModel):
     name: str
     description: str
     status: str
