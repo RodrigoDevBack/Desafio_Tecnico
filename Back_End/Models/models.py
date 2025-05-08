@@ -1,11 +1,22 @@
 from tortoise.models import Model
 from tortoise import fields
 
-class Project(Model):
-    __tablename__ = "projects"
+class add_project(Model):
     id = fields.IntField(primary_key = True)
     name = fields.CharField(max_length = 60)
     description = fields.TextField()
     status = fields.TextField()  # Ex: ativo, pausado, finalizado
     created_at = fields.DatetimeField(auto_now = True)
-    
+
+
+class get_projects(Model, id):
+    id = id
+
+class put_Project(Model, id):
+    id = id
+
+class get_Project(Model, id):
+    id = id
+
+class del_project(Model, id):
+    id = id
