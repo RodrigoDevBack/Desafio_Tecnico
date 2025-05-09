@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
+from Core import define_router
+
+def config_router(api: FastAPI):
+    api.include_router(define_router.router)
 
 def configure_db(app: FastAPI):
     register_tortoise(
