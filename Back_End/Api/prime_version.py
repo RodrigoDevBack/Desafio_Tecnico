@@ -12,7 +12,7 @@ def appConfig():
 
 app = appConfig()
 
-app.post("/projects/add")
+@app.post('/projects/add')
 async def post_projects(addProject: addProject):
     project = await add_project.create(
         name = addProject.name,
@@ -21,6 +21,6 @@ async def post_projects(addProject: addProject):
         )
     return {"Status": "200"}
 
-app.get('/projects/get')
-async def get_projects():
+@app.get('/project/get')
+def get_projects():
     return {"Status": "200"}
