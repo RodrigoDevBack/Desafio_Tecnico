@@ -1,14 +1,10 @@
 from fastapi import FastAPI
-from Core.dbconfig import configure_db, config_router
-from Schemas.model_project import addProject
-from Models.models import add_project
+from Back_End.Core.configDB import lifespan, ConfigRouter
 
 def appConfig():
-    app = FastAPI()
+    app = FastAPI(lifespan=lifespan)
     
-    config_router(app)
-
-    configure_db(app)
+    ConfigRouter(app)
     
     return app
 

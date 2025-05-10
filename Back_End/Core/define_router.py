@@ -1,18 +1,32 @@
 from fastapi import APIRouter
-from Models.models import add_project
-from Schemas.model_project import addProject
+from Back_End.Models.model import Project_Manager
+from Back_End.Schemas.model_project import addProject
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/Project",
+    tags=["Project"],
+    responses={404: {"description": "Not found"}})
 
-@router.post('/projects/add')
+@router.post("/add")
 async def post_projects(addProject: addProject):
-    project = await add_project.create(
+    project = await Project_Manager.create(
         name = addProject.name,
         description = addProject.description,
         status = addProject.status
         )
     return {"Status": "200"}
 
-@router.get('/project/get')
-def get_projects():
-    return add_project.all
+@router.get("/get")
+async def get_projects():
+    projetos = await Project_Manager.all()
+    return {"Projetos ": projetos}
+
+
+@router.put("/put")
+async def put_project():
+    return {"Nada ainda." : "200"}
+
+
+@router.delete("/delete")
+async def delete_project():
+    return {"Nada ainda." : "200"}
