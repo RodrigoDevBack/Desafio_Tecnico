@@ -1,10 +1,9 @@
-version: "3.8"
 
 services:
   app:
-    build: .
+    build: Back_End
     ports:
-      - "8000:8000"
+      - "5000:5000"
     depends_on:
       - db
     environment:
@@ -26,6 +25,15 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  front_end:
+    build: front_end
+    ports:
+      - "8000:8000"
+    depends_on:
+      - app
+    volumes:
+      - .:/front_end
 
 volumes:
   postgres_data:

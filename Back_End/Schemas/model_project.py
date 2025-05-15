@@ -12,3 +12,7 @@ class editProject(BaseModel):
     name: str
     description: str
     status: str 
+    
+class user(BaseModel):
+    name_user: str
+    password_user: str
