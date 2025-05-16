@@ -3,7 +3,7 @@ session_start();
 
 include "Requests/deletE.php";
 include "Requests/put_php.php";
-include "Requests/get_one_php.php";
+include "service/trans_get_one.php";
 
 if (!isset($_SESSION['logado'])) {
     header('Location: front_end/login.php');
@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body>
 
-    <h2><?php echo getOne($_SESSION['ID'])?></h2>
+    <h2><?php transform_getOne($_SESSION['ID'])?></h2>
 
     <h2>Rewrite Project</h2> <br>
 
@@ -50,7 +50,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <input type="text" name="description" required><br><br>
 
         <label>Project_status</label><br>
-        <input type="text" name="status" required><br><br>
+        <label>Iniciado</label> <br>
+        <input type="radio" name="status" value="Iniciado" required> <br>
+        <label>Pausado</label> <br>
+        <input type="radio" name="status" value="Pausado" required><br>
+        <label>Finalizado</label> <br>
+        <input type="radio" name="status" value="Finalizado" required> <br> <br>
 
         <button type="reset">Limpar</button>
         <button type="submit" name="Rewrite">Rewrite</button> <br>

@@ -2,7 +2,7 @@
 session_start();
 
 
-include "Requests/get_php.php";
+include "service/trans_get_all.php";
 include "Requests/post_php.php";
 
 $allProject = '';
@@ -18,9 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         $description = $_POST['description'];
         $status = $_POST['status'];
         post_project($name, $description, $status);
-
-    } else if(isset($_POST['Ver_tudo'])){
-        $allProject = getAll();
 
     } else if(isset($_POST['get_one'])){
         $get = $_POST['id'];
@@ -41,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 <body>
     <h2>Veja todos os projetos: </h2> <br>
 
-    <h3><?php echo $allProject; ?></h3> <br> <br>
+    <h3><?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Ver_tudo'])){transform_getAll();}?></h3> <br> <br>
 
     <form method="post">
         <button type="submit" name="Ver_tudo">Atualizar</button>
@@ -67,7 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         <input type="text" name="description" placeholder="Description" required><br><br>
 
         <label>Project_status</label><br>
-        <input type="text" name="status" placeholder="Status" required><br><br>
+        <label>Iniciado</label> <br>
+        <input type="radio" name="status" value="Iniciado" required> <br>
+        <label>Pausado</label> <br>
+        <input type="radio" name="status" value="Pausado" required><br>
+        <label>Finalizado</label> <br>
+        <input type="radio" name="status" value="Finalizado" required> <br> <br>
 
         <button type="reset">Limpar</button>
         <button type="submit" name="Register">Register</button> <br> <br>
