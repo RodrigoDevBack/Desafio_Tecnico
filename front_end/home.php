@@ -36,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     <title>Painel</title>
 </head>
 <body>
-    <h2>Veja todos os projetos: </h2> <br>
+    <h2>Veja os projetos: </h2> <br>
 
     <h3><?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Ver_tudo'])){transform_getAll();}?></h3> <br> <br>
 
     <form method="post">
-        <button type="submit" name="Ver_tudo">Atualizar</button>
+        <button type="submit" name="Ver_tudo">Mostrar\Atualizar</button>
     </form> <br> <br>
 
 

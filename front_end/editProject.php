@@ -21,8 +21,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $id = $_SESSION['ID'];
         $name = $_POST['name'];
         $description = $_POST['description'];
-        $status = $_POST['status'];
-        put_project($id,$name, $description, $status);
+        $status = $_POST['status'] ?? null;
+        put_project(id: $id, name: $name, description: $description, status: $status);
     }
 }
 
@@ -44,18 +44,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <form method="post">
 
         <label>Project_name</label><br>
-        <input type="text" name="name" required> <br><br>
+        <input type="text" name="name" > <br><br>
 
         <label>Project_description</label><br>
-        <input type="text" name="description" required><br><br>
+        <input type="text" name="description" ><br><br>
 
         <label>Project_status</label><br>
         <label>Iniciado</label> <br>
-        <input type="radio" name="status" value="Iniciado" required> <br>
+        <input type="radio" name="status" value="Iniciado"> <br>
         <label>Pausado</label> <br>
-        <input type="radio" name="status" value="Pausado" required><br>
+        <input type="radio" name="status" value="Pausado" ><br>
         <label>Finalizado</label> <br>
-        <input type="radio" name="status" value="Finalizado" required> <br> <br>
+        <input type="radio" name="status" value="Finalizado" > <br> <br>
 
         <button type="reset">Limpar</button>
         <button type="submit" name="Rewrite">Rewrite</button> <br>

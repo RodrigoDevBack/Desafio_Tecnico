@@ -8,7 +8,7 @@ function post_project(string $name, string $description, string $status): bool|s
 
     $json = json_encode($postData);
 
-    $crl = curl_init("http://app:5000/Project/add");
+    $crl = curl_init("http://app:5000/Project/create");
 
 
     curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);

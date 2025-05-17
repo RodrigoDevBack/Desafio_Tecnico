@@ -11,11 +11,4 @@ class Project_Manager(Model):
     def __str__(self):
         return self.description, self.status
 
-
-class User_Manager(Model):
-    name_user = fields.TextField()
-    user_password = fields.TextField()
-    
-    def __str__(self):
-        return self.id_user, self.user_password
     

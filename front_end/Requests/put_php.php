@@ -1,17 +1,27 @@
 <?php
-function put_project(int $id, string $name, string $description, string $status): bool|string {
-$url = "http://app:5000/Project/put";
+function put_project(int $id, $name = null, $description = null, $status = null): bool|string {
+$url = "http://app:5000/Project/update";
 
 $data = [
     'Id' => [
         'id' => $id
     ],
-    'edit' => [
+    'update_project' => [
         'name' => $name,
         'description' => $description,
         'status' => $status,
         ]
 ];
+
+if ($data['update_project']['name'] == null) {
+    unset($data['update_project']['name']);
+} 
+if($data['update_project']['description'] == null) {
+    unset($data['update_project']['description']);
+} 
+if ($data['update_project']['status'] === null) {
+    unset($data['update_project']['status']);
+}
 
 $json = json_encode($data);
 
