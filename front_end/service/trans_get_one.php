@@ -1,5 +1,5 @@
 <?php
-include "Requests/get_one_php.php";
+include "Requests/project/get_one_project.php";
 
 function transform_getOne(int $id ){
     $project = json_decode(getOne($id), true);

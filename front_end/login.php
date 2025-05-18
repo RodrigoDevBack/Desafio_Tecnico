@@ -1,16 +1,17 @@
 <?php
-session_reset();
 session_start();
 
-$usuario_correto = 'admin';
-$senha_correta = '1234';
+include "Requests/user/login_user.php";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_POST['usuario'] ?? '';
     $senha = $_POST['senha'] ?? '';
 
-    if($usuario === $usuario_correto && $senha === $senha_correta) {
-        session_regenerate_id(true);
+    $response = loginUser( $usuario, $senha );
+
+    $response = json_decode($response, true);
+    
+    if(isset($response) && $response['Login'] == "True") {;
         $_SESSION['logado'] = true;
         $_SESSION['usuario'] = $usuario;
         header('Location: /front_end/home.php');
@@ -27,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login Teste</title>
+    <title>Login</title>
 </head>
 <body>
     <h2>Login</h2>
@@ -43,5 +44,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="senha" placeholder="Senha" required> <br><br>
         <button type="submit">Entrar</button>
     </form>
+        <p> <a href="/front_end/registration.php">Create/Update User</a></p>
 </body>
 </html>

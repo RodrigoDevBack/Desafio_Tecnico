@@ -14,7 +14,7 @@ function getAll(): mixed{
 
     if(curl_error($cURL)){
         curl_close($cURL);
-        $response = json_decode(curl_error($cURL), true);
+        $response = curl_error($cURL);
         return $response;
     } else{
         curl_close($cURL);

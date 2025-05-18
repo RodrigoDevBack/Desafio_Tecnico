@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-include "Requests/deletE.php";
-include "Requests/put_php.php";
-include "service/trans_get_one.php";
+include "Requests/project/delete_project.php";
+include "Requests/project/put_project.php";
+include "service/project/trans_get_one.php";
 
 if (!isset($_SESSION['logado'])) {
     header('Location: front_end/login.php');

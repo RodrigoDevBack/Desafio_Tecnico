@@ -7,6 +7,9 @@ class User_Register(BaseModel):
     
 class Get_Id(BaseModel):
     id: int
+
+class Get_Name(BaseModel):
+    search_user: str
     
 class User_Update(BaseModel):
     name_user: Optional[str] = None

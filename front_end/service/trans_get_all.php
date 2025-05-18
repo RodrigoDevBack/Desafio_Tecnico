@@ -1,5 +1,5 @@
 <?php
-include "Requests/get_php.php";
+include "Requests/project/get_project.php";
 
 function transform_getAll(){
     $projetos = json_decode(getAll(), true);
