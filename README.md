@@ -32,6 +32,6 @@ Para acessar o banco de dados usando alguma aplicação específica...
 
 Exemplo usando o DBeaver:
 
-Senha: 'titan'
+Senha: `titan`
 
 ![Descrição da imagem](image_readme/image.png)
