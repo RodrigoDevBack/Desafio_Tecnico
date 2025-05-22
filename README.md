@@ -14,13 +14,13 @@ OBS: Para que o projeto rode normalmente, você deve garantir o acesso das porta
 
 6º Escreva o seguinte comando:
 
-docker-compose up --build
+´docker-compose up --build´
 
 Ele criará a imagem do projeto e iniciára os containers necessitados pelo projeto.
 
 7º Abra o navegador e acesse o "site"
 
-'http://localhost:8000'
+http://localhost:8000
 
 Você acesará a página principal do projeto
 
