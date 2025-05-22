@@ -3,10 +3,15 @@
 OBS: Para que o projeto rode normalmente, você deve garantir o acesso das portas 8000, 5000 e 5433 em sua máquina. Ou seja, não tenha outro software ocupando uma dessas portas e/ou alguma aplicação privando o acesso de alguma delas.
 
 1º Efetue o download do .zip do projeto
+
 2º Inicie o Docker na sua máquina
+
 3º Abra o projeto descompactado no seu editor de códigos
+
 4º Abra o prompt de comandos
+
 5º Garanta que esteja dentro da pasta do projeto
+
 6º Escreva o seguinte comando:
 
 docker-compose up --build
