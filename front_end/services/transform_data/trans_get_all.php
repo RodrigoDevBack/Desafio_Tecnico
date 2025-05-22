@@ -1,8 +1,8 @@
 <?php
-include "Requests/project/get_project.php";
+
 
 function transform_getAll(){
-    $projetos = json_decode(getAll(), true);
+    $projetos = getAll();
     if(is_array($projetos)){
         foreach($projetos as $projet){
             $date = "Date: ". substr($projet["created_at"], 0, 10);
@@ -11,9 +11,9 @@ function transform_getAll(){
             echo"Name: ".$projet["name"]. "<br>";
             echo"Description: ".$projet["description"]. "<br>";
             echo"Status: ".$projet["status"]. "<br>";
-            echo"" . $hour . $date ."<br> <br>";
+            echo"Created_at: " . $hour . $date ."<br> <br>";
         }
     }else{
-        echo"Não tem ninguém";
+        echo"Don't exists projects";
     };
 }

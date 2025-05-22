@@ -1,23 +1,26 @@
 <?php  
-function getAll(): mixed{
+function getAll(){
+    $url = "http://app:5000/Project/getall";
 
-    //Inicializar
-    $cURL = curl_init("http://app:5000/Project/getall");
+    $cURL = curl_init($url);
 
-    //Habilita Recuperar dados
     curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
 
     curl_setopt($cURL, CURLOPT_HTTPGET, true);
 
-    //Initialize
     $response = curl_exec($cURL);
+
+    $response = json_decode($response, true);
 
     if(curl_error($cURL)){
         curl_close($cURL);
+
         $response = curl_error($cURL);
+
         return $response;
     } else{
         curl_close($cURL);
+        
         return $response;
     }
 }

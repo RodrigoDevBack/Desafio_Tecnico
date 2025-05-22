@@ -4,7 +4,8 @@ function registerUser($user, $password) {
 
     $data = [
         "name" => $user,
-        "password" => $password];
+        "password" => $password
+    ];
 
     $json = json_encode($data);
 
@@ -16,19 +17,22 @@ function registerUser($user, $password) {
 
     curl_setopt($cURL, CURLOPT_POSTFIELDS, $json);
 
-    curl_setopt($cURL, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Context-Length: '. strlen($json)] );
+    curl_setopt($cURL, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json', 
+        'Content-Length: '. strlen($json)] 
+    );
 
     $response = curl_exec($cURL);
 
     $response = json_decode($response, true);
 
-    if ($response != null && $response['Fail'] !== null){
+    if (!$response['Fail']){
         curl_close($cURL);
 
-        return false;
+        return true;
     } else {
         curl_close($cURL);
         
-        return true;
+        return false;
     }
 }

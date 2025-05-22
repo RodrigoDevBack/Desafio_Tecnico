@@ -1,12 +1,8 @@
 <?php
 session_start();
 
-include "Requests/project/delete_project.php";
-include "Requests/project/put_project.php";
-include "service/project/trans_get_one.php";
-
-if (!isset($_SESSION['logado'])) {
-    header('Location: front_end/login.php');
+if (!isset($_SESSION['logon'])) {
+    header('Location: login.php');
     exit;
 }
 
@@ -14,30 +10,34 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if(isset($_POST['Delete'])){
         $id = $_SESSION['ID'];
+
         delete($id);
+
         header('Location: home.php');
         exit;
+
     } else if(isset($_POST['Rewrite'])){
         $id = $_SESSION['ID'];
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $status = $_POST['status'] ?? null;
-        put_project(id: $id, name: $name, description: $description, status: $status);
+        $name = $_POST['name'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $status = $_POST['status'] ?? '';
+
+        updateProject($id, $name,  $description,  $status);
     }
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt_br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Project_Edition</title>
 </head>
 <body>
 
-    <h2><?php transform_getOne($_SESSION['ID'])?></h2>
+    <h2><?php transform_getOne(getOne($_SESSION['ID'])['Result'])?></h2>
 
     <h2>Rewrite Project</h2> <br>
 
@@ -68,6 +68,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         <button type="submit" name="Delete">Delete</button> <br>
     </form>
     <p><a href="home.php">Voltar</a></p>
-    <p><a href="logout.php">Sair</a></p>
+    <p><a href="login/logout.php">Sair</a></p>
 </body>
 </html>

@@ -5,7 +5,8 @@ function loginUser($user, $password) {
 
     $data = [
         "name" => $user,
-        "password" => $password];
+        "password" => $password
+    ];
 
     $json = json_encode($data);
 
@@ -17,19 +18,20 @@ function loginUser($user, $password) {
 
     curl_setopt($cURL, CURLOPT_POSTFIELDS, $json);
 
-    curl_setopt($cURL, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Context-Length: '. strlen($json)] );
+    curl_setopt($cURL, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json', 
+        'Content-Length: '. strlen($json)] 
+    );
 
     $response = curl_exec($cURL);
 
-    if (curl_error($cURL)){
-        curl_close($cURL);
+    $response = json_decode($response, true);
 
-        $response = curl_error($cURL);
-
-        return $response;
+    if (!$response['Fail']){
+        return true;
     } else {
         curl_close($cURL);
         
-        return $response;
+        return false;
     }
 }

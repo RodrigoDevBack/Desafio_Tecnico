@@ -1,13 +1,9 @@
 <?php
 session_start();
 
-
-include "service/trans_get_all.php";
-include "Requests/project/post_project.php";
-
 $allProject = '';
 
-if (!isset($_SESSION['logado'])) {
+if (!isset($_SESSION['logon'])) {
     header('Location: login.php');
     exit;
 }
@@ -17,13 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         $name = $_POST['name'];
         $description = $_POST['description'];
         $status = $_POST['status'];
-        post_project($name, $description, $status);
+
+        createProject($name, $description, $status);
 
     } else if(isset($_POST['get_one'])){
         $get = $_POST['id'];
         $_SESSION['ID'] = $get;
-        header('Location: editProject.php');
-        exit;
+        $response = getOne($get);
+        if(!$response['Fail']){
+            $_SESSION['one_project'] = getOne($get)['Result'];
+            header('Location: edit_project.php');
+            exit;
+        } else {
+            $error = "Projeto não encontrado";
+        }
     }
 }
 
@@ -46,6 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
 
     <h2>Editar um projeto</h2>
+
+    <?php if (!empty($error)) : ?>
+        <p style="color: red"><?=$error?></p>
+    <?php endif;?>
 
     <form method="post">
         <h3>Project ID</h3> <br>
@@ -75,6 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         <button type="submit" name="Register">Register</button> <br> <br>
     </form>
 
-    <p><a href="logout.php">Sair</a></p>
+    <p><a href="login/logout.php">Sair</a></p>
 </body>
 </html>

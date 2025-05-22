@@ -7,6 +7,7 @@ import os
 def ConfigRouter(api: FastAPI):
     api.include_router(routers.router)
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await Tortoise.init(
