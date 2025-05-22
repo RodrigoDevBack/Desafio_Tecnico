@@ -28,3 +28,4 @@ Exemplo usando o DBeaver:
 
 Senha: titan
 
+![Descrição da imagem](image_readme/image.png)
