@@ -1,6 +1,6 @@
 # Desafio_Tecnico
 
-OBS: Para que o projeto rode normalmente, você deve garantir o acesso das portas 8000, 5000 e 5433 de sua máquina. Ou seja, não tenha outro software ocupando uma dessas portas e/ou alguma aplicação privando o acesso de alguma delas.
+OBS: Para que o projeto rode normalmente, você deve garantir o acesso das portas 8000, 5000 e 5433 em sua máquina. Ou seja, não tenha outro software ocupando uma dessas portas e/ou alguma aplicação privando o acesso de alguma delas.
 
 1º Efetue o download do .zip do projeto
 2º Inicie o Docker na sua máquina
