@@ -20,7 +20,7 @@ Ele criará a imagem do projeto e iniciára os containers necessitados pelo proj
 
 7º Abra o navegador e acesse o "site"
 
-http://localhost:8000
+'http://localhost:8000'
 
 Você acesará a página principal do projeto
 
@@ -32,6 +32,6 @@ Para acessar o banco de dados usando alguma aplicação específica...
 
 Exemplo usando o DBeaver:
 
-Senha: titan
+Senha: 'titan'
 
 ![Descrição da imagem](image_readme/image.png)
