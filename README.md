@@ -23,7 +23,7 @@ Más, caso queira acessar a api, acesse:
 
 http://localhost:5000
 
-Para acessar o banco de dados usando alguma aplicação específica, você pode usar:
+Para acessar o banco de dados usando alguma aplicação específica...:
 Exemplo usando o DBeaver:
 
 Senha: titan
