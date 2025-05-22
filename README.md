@@ -14,7 +14,7 @@ OBS: Para que o projeto rode normalmente, você deve garantir o acesso das porta
 
 6º Escreva o seguinte comando:
 
-'docker-compose up --build'
+`docker-compose up --build`
 
 Ele criará a imagem do projeto e iniciára os containers necessitados pelo projeto.
 
