@@ -62,7 +62,7 @@ class projectController{
 
             updateProject($id, $name,  $description,  $status);
 
-        } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Delete'])){
+        } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])){
             $id = $_SESSION['ID'];
 
             delete($id);

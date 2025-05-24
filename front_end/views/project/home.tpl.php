@@ -27,7 +27,7 @@
     <?php endif;?>
 
     <form method="post">
-        <h3>Project ID</h3> <br>
+        <label>Project ID</label> <br>
         <input type="number" name= 'id' placeholder="ID_Project" required> <br>
         <button type="submit" name="get_one">Editar</button> <br>
     </form> <br> <br>
