@@ -26,7 +26,7 @@ Você acesará a página principal do projeto
 
 Más, caso queira acessar a api, acesse:
 
-http://localhost:5000
+http://localhost:5000/docs
 
 Para acessar o banco de dados usando alguma aplicação específica...
 
