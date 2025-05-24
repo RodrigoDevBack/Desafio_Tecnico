@@ -6,4 +6,4 @@ WORKDIR /Front_End
 
 COPY  . .
 
-CMD [ "php", "-S", "0.0.0.0:8000", "front_end/router.php"]
+CMD [ "php", "-S", "0.0.0.0:8000", "Front_End/router.php"]
