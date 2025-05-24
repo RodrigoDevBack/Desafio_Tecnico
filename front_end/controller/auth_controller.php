@@ -71,7 +71,7 @@ class userController{
             $response = updateUser( $search_user, $new_user, $password);
         
             if($response) {
-                ["result_ok2" => "Update Successful..."];
+                $result_ok2 = "Update Successful...";
             } else{
                 $result_error2 = "Invalid User.";
             }
