@@ -1,33 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['logon'])) {
-    header('Location: login.php');
-    exit;
-}
-
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
-    if(isset($_POST['Delete'])){
-        $id = $_SESSION['ID'];
-
-        delete($id);
-
-        header('Location: home.php');
-        exit;
-
-    } else if(isset($_POST['Rewrite'])){
-        $id = $_SESSION['ID'];
-        $name = $_POST['name'] ?? '';
-        $description = $_POST['description'] ?? '';
-        $status = $_POST['status'] ?? '';
-
-        updateProject($id, $name,  $description,  $status);
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt_br">
 <head>
@@ -37,7 +7,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body>
 
-    <h2><?php transform_getOne(getOne($_SESSION['ID'])['Result'])?></h2>
+    <h3>
+        <p><?php echo $project['Id']; ?></p> 
+        <p><?php echo $project['Name']; ?></p> 
+        <p><?php echo $project['Description']; ?></p>
+        <p><?php echo $project['Status']; ?></p>
+        <p><?php echo $project['Created_at']; ?></p> 
+    </h3>
 
     <h2>Rewrite Project</h2> <br>
 
@@ -64,10 +40,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <h2>Delete Project</h2> <br>
 
     <form method="post">
-
-        <button type="submit" name="Delete">Delete</button> <br>
+        <button type="submit" name="delete">Delete</button> <br> <br>
     </form>
-    <p><a href="home.php">Voltar</a></p>
-    <p><a href="login/logout.php">Sair</a></p>
+    
+    <form method="post">
+        <button type="submit" name="back">Back</button> <br> <br>
+    </form>
+    
+    <form method="post">
+        <button type="submit" name="exit">Exit</button> <br>
+    </form>
+    
 </body>
 </html>

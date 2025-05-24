@@ -1,37 +1,3 @@
-<?php
-session_start();
-
-$allProject = '';
-
-if (!isset($_SESSION['logon'])) {
-    header('Location: login.php');
-    exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
-    if (isset($_POST['Register'])){
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $status = $_POST['status'];
-
-        createProject($name, $description, $status);
-
-    } else if(isset($_POST['get_one'])){
-        $get = $_POST['id'];
-        $_SESSION['ID'] = $get;
-        $response = getOne($get);
-        if(!$response['Fail']){
-            $_SESSION['one_project'] = getOne($get)['Result'];
-            header('Location: edit_project.php');
-            exit;
-        } else {
-            $error = "Projeto não encontrado";
-        }
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -41,7 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 <body>
     <h2>Veja os projetos: </h2> <br>
 
-    <h3><?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Ver_tudo'])){transform_getAll();}?></h3> <br> <br>
+    <h3><?php if(isset($projects)) foreach($projects as $project) : ?>
+        <p><?php echo $project['Id']; ?></p> 
+        <p><?php echo $project['Name']; ?></p> 
+        <p><?php echo $project['Description']; ?></p>
+        <p><?php echo $project['Status']; ?></p>
+        <p><?php echo $project['Created_at']; ?></p>
+    <?php endforeach;?> </h3>
 
     <form method="post">
         <button type="submit" name="Ver_tudo">Mostrar\Atualizar</button>
@@ -56,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
     <form method="post">
         <h3>Project ID</h3> <br>
-        <input type="number" name= 'id' placeholder="ID_Project"> <br>
+        <input type="number" name= 'id' placeholder="ID_Project" required> <br>
         <button type="submit" name="get_one">Editar</button> <br>
     </form> <br> <br>
 
@@ -81,7 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         <button type="reset">Limpar</button>
         <button type="submit" name="Register">Register</button> <br> <br>
     </form>
-
-    <p><a href="login/logout.php">Sair</a></p>
+    
+    <form method="post">
+        <button type="submit" name="exit">Exit</button> <br>
+    </form>
 </body>
 </html>

@@ -1,28 +1,8 @@
-<?php
-session_start();
-
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = $_POST['user'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    $response = loginUser( $user, $password );
-    
-    if($response) {;
-        $_SESSION['logon'] = true;
-        header('Location: /front_end/home.php');
-        exit;
-    } else{
-        $error = "Invalid user or password...";
-    }
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
@@ -39,9 +19,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Password</label><br>
         <input type="password" name="password" placeholder="Password" required> <br><br>
 
-        <button type="submit">Acess</button> <br> <br>
+        <button type="submit" name="acess">Acess</button> <br> <br>
 
+    </form> <br>
+    
+    <form method="post">
+        <button type="submit" name="update">Esqueceu a senha?</button> <br> <br>
     </form>
-        <p> <a href="/front_end/login/registration.php">Create/Update User</a></p>
+
+    <form method="post">
+        <button type="submit" name="register">Register now</button>
+    </form>
 </body>
 </html>

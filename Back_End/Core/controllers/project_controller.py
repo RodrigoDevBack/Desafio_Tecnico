@@ -31,7 +31,7 @@ async def get_projects():
 async def get_project(Id: Get_Id):
     project = await Project_Manager.get_or_none(id=Id.id)
     
-    if not project:
+    if not project or not Get_Id:
         return {"Fail": True, "Result" : "Projeto não encontrado"}
     
     return {"Fail": False, "Result": project}

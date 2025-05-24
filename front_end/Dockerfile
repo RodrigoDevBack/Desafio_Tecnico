@@ -2,7 +2,7 @@
 
 FROM php:latest
 
-WORKDIR /front_end
+WORKDIR /Front_End
 
 COPY  . .
 

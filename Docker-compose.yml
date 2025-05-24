@@ -27,13 +27,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   front_end:
-    build: front_end
+    build: Front_End
     ports:
       - "8000:8000"
     depends_on:
       - app
     volumes:
-      - .:/front_end
+      - .:/Front_End
 
 volumes:
   postgres_data:
