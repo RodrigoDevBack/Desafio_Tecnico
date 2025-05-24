@@ -1,0 +1,37 @@
+<?php
+
+function loginUser($user, $password) {
+    $url = "http://app:5000/user/login";
+
+    $data = [
+        "name" => $user,
+        "password" => $password
+    ];
+
+    $json = json_encode($data);
+
+    $cURL = curl_init($url);
+
+    curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($cURL, CURLOPT_PUT, true);
+
+    curl_setopt($cURL, CURLOPT_POSTFIELDS, $json);
+
+    curl_setopt($cURL, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json', 
+        'Content-Length: '. strlen($json)] 
+    );
+
+    $response = curl_exec($cURL);
+
+    $response = json_decode($response, true);
+
+    if (!$response['Fail']){
+        return true;
+    } else {
+        curl_close($cURL);
+        
+        return false;
+    }
+}
