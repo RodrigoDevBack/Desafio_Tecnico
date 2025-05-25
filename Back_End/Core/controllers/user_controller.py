@@ -4,6 +4,10 @@ from Back_End.Schemas.schema_user import User_Register, User_Update, Get_Id, Get
 
 from Back_End.Models.model_user import User_Manager
 
+from ..security import hash_password
+
+from ...Schemas.responses.responses_user import UserResponse
+
 
 router_user = APIRouter(
     tags=["User"],
@@ -53,7 +57,10 @@ async def update_user(user: Get_Name, update: User_Update):
     
     if await User_Manager.get_or_none(name_user=update.name_user) != None:
         return {"Fail": True, "Result": "Usuário já existe"}
-    
+
+    if update.user_hash_password:
+        update.user_hash_password = (hash_password(update.user_hash_password))
+
     data_update_user = update.model_dump(exclude_unset=True, exclude_defaults=True, exclude_none=True)
     user_update.update_from_dict(data = data_update_user)
     
