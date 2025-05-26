@@ -1,8 +1,12 @@
-from fastapi import APIRouter
+from typing import Annotated
+
+from fastapi import APIRouter, Depends
 
 from Back_End.Schemas.schema_project import Project_Create, Get_Id, Project_Update
 
 from Back_End.Models.model_project import Project_Manager
+
+from ..depends.user import get_user_logon
 
 
 router_project = APIRouter(
@@ -11,7 +15,7 @@ router_project = APIRouter(
 
 
 @router_project.post("/create")
-async def create_project(createProject: Project_Create):
+async def create_project(createProject: Project_Create, user_logon: Annotated[str, Depends(get_user_logon)]):
     project = await Project_Manager.create(
         name = createProject.name, 
         description = createProject.description, 
@@ -21,14 +25,14 @@ async def create_project(createProject: Project_Create):
 
 
 @router_project.get("/getall")
-async def get_projects():
+async def get_projects(user_logon: Annotated[str, Depends(get_user_logon)]):
     projects = await Project_Manager.all()
     
     return projects
 
 
 @router_project.post("/getone")
-async def get_project(Id: Get_Id):
+async def get_project(Id: Get_Id, user_logon: Annotated[str, Depends(get_user_logon)]):
     project = await Project_Manager.get_or_none(id=Id.id)
     
     if not project or not Get_Id:
@@ -38,7 +42,7 @@ async def get_project(Id: Get_Id):
 
 
 @router_project.put("/update")
-async def update_project(Id: Get_Id, update_project: Project_Update):
+async def update_project(Id: Get_Id, update_project: Project_Update, user_logon: Annotated[str, Depends(get_user_logon)]):
     project = await Project_Manager.get_or_none(id= Id.id)
     
     if not project:
@@ -51,7 +55,7 @@ async def update_project(Id: Get_Id, update_project: Project_Update):
 
 
 @router_project.delete("/delete")
-async def delete_project(Id: Get_Id):
+async def delete_project(Id: Get_Id, user_logon: Annotated[str, Depends(get_user_logon)]):
     project = await Project_Manager.get_or_none(id=Id.id)
     
     if not project:

@@ -1,12 +1,17 @@
-from fastapi import APIRouter
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, HTTPException, status
+
+from fastapi.security import OAuth2PasswordRequestForm
 
 from Back_End.Schemas.schema_user import User_Register, User_Update, Get_Id, Get_Name
 
 from Back_End.Models.model_user import User_Manager
 
-from ..security import hash_password
+from ..security import hash_password, hash_token_user
 
-from ...Schemas.responses.responses_user import UserResponse
+from ..depends.user import get_user_logon
+
 
 
 router_user = APIRouter(
@@ -15,16 +20,16 @@ router_user = APIRouter(
 
 
 @router_user.post("/login")
-async def login_user(credentials: User_Register):
-    user = await User_Manager.get_or_none(name_user=credentials.name)
+async def login_user(credentials: Annotated[OAuth2PasswordRequestForm, Depends()]):
+    user = await User_Manager.get_or_none(name_user=credentials.username)
     
     if (user != None):
-        if (user.name_user == credentials.name and user.user_hash_password == credentials.password):
-            return {"Fail": False, "Result" : True}
+        if (user.user_hash_password == hash_password(credentials.password)):
+            return {"access_token" : hash_token_user(user.id_user), "token_type" : "bearer"}
         else:
-            return {"Fail": True, "Result" : "Usuário ou senha inválidos."}
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user or password.")
     else:
-        return {"Fail": True, "Result": "Usuário ou senha inválidos."}
+        return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorret user or password.")
 
 
 @router_user.post("/register")
@@ -42,7 +47,7 @@ async def register_user(register: User_Register):
 
 
 @router_user.get("/users")
-async def get_users():
+async def get_users(user_logon: Annotated[str, Depends(get_user_logon)]):
     users = await User_Manager.all()
     
     return users
@@ -69,7 +74,7 @@ async def update_user(user: Get_Name, update: User_Update):
     return {'Fail': False, "Result" : user_update}
 
 @router_user.delete("/delete")
-async def delete_user(id: Get_Id):
+async def delete_user(id: Get_Id, user_logon: Annotated[str, Depends(get_user_logon)]):
     deleted = await User_Manager.get_or_none(id_user = id.id)
     
     if not deleted:
