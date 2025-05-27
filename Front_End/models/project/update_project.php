@@ -25,7 +25,8 @@ function updateProject(int $id, $name = null, $description = null, $status = nul
 
     curl_setopt($cURL, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json', 
-        'Content-length'. strlen($json)
+        'Content-length'. strlen($json),
+        'Authorization: Bearer '. $_SESSION['Hash']
         ]
     );
 

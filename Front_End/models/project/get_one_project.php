@@ -1,5 +1,6 @@
 <?php  
 function getOne(int $id){
+
     $url = "http://app:5000/Project/getone";
 
     $data = ['id' => $id];
@@ -16,7 +17,8 @@ function getOne(int $id){
 
     curl_setopt($cURL, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json', 
-        'Context-Length: '. strlen($json)
+        'Context-Length: '. strlen($json),
+        'Authorization: Bearer '. $_SESSION['Hash']
         ]
     );
 

@@ -21,7 +21,8 @@ function createProject(string $name, string $description, string $status){
 
     curl_setopt($cURL, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json', 
-        'Context-Length: '. strlen($json)
+        'Context-Length: '. strlen($json),
+        'Authorization: Bearer '. $_SESSION['Hash']
         ] 
     );
 

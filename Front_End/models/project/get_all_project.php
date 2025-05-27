@@ -8,6 +8,11 @@ function getAll(){
 
     curl_setopt($cURL, CURLOPT_HTTPGET, true);
 
+    curl_setopt($cURL, CURLOPT_HTTPHEADER, [
+        'Authorization: Bearer '. $_SESSION['Hash']
+        ]
+    );
+
     $response = curl_exec($cURL);
 
     $response = json_decode($response, true);

@@ -8,7 +8,7 @@ function updateUser($user, $new_name = null,  $password = null) {
         ],
         'update' => [
             'name_user' => $new_name,
-            'user_hash_password' => $password,
+            'password' => $password,
         ]
     ];
 
