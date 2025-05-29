@@ -4,6 +4,8 @@ include __DIR__ . "/controller/auth_controller.php";
 
 include __DIR__ . "/controller/project_controller.php";
 
+include __DIR__ . "/controller/default_controller.php";
+
 $uri = $_SERVER["REQUEST_URI"];
 
 switch($uri){
@@ -33,7 +35,7 @@ switch($uri){
 
     default:
         http_response_code(404);
-        echo"Página não encontrada";
+        (new Default_controller()) -> default();
         break;
 }
 
