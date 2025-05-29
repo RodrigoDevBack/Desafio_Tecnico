@@ -24,13 +24,13 @@ function loginUser($user, $password) {
 
     $response = json_decode($response, true);
 
-    if (!$response['access_token']) {
+    if (curl_getinfo($cURL, CURLINFO_HTTP_CODE) != 200) {
         curl_close($cURL);
 
         return false;
     } else {
         curl_close($cURL);
-        //print_r($response);
+
         $_SESSION['Hash'] = $response['access_token'] ?? null;
 
         return true;

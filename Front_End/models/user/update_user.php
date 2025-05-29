@@ -31,13 +31,13 @@ function updateUser($user, $new_name = null,  $password = null) {
     
     $response = json_decode($response, true);
     
-    if (!$response['Fail']) {
-        curl_close($cURL);
+    if (curl_getinfo($cURL, CURLINFO_HTTP_CODE) != 200) {
+        curl_close($cURL);  
 
-        return true;
+        return false;
     } else {
         curl_close($cURL);
         
-        return false;
+        return true;
     }
 }

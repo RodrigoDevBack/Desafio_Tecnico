@@ -26,13 +26,13 @@ function registerUser($user, $password) {
 
     $response = json_decode($response, true);
 
-    if (!$response['Fail']){
+    if (curl_getinfo($cURL, CURLINFO_HTTP_CODE) != 200) {
         curl_close($cURL);
 
-        return true;
+        return false;
     } else {
         curl_close($cURL);
         
-        return false;
+        return true;
     }
 }

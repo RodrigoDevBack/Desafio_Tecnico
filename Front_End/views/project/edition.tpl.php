@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project_Edition</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -26,12 +27,11 @@
         <input type="text" name="description" ><br><br>
 
         <label>Project_status</label><br>
-        <label>Iniciado</label> <br>
-        <input type="radio" name="status" value="Iniciado"> <br>
-        <label>Pausado</label> <br>
-        <input type="radio" name="status" value="Pausado" ><br>
-        <label>Finalizado</label> <br>
-        <input type="radio" name="status" value="Finalizado" > <br> <br>
+        <select name="status" class="form-select" aria-label="Default select example" id="status" required>
+            <option value="Iniciado">Iniciado</option>
+            <option value="pausado">Pausado</option>
+            <option value="Finalizado">Finalizado</option>
+        </select> <br> <br>
 
         <button type="reset">Limpar</button>
         <button type="submit" name="Rewrite">Rewrite</button> <br>
@@ -50,6 +50,6 @@
     <form method="post">
         <button type="submit" name="exit">Exit</button> <br>
     </form>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -35,8 +35,11 @@ class projectController{
             } else {
                 $error = "Projeto não encontrado";
             }
-        } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Ver_tudo'])){
+        } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['show_all'])){
             $projects = transform_getAll();
+
+        } else if ($_SERVER['REQUEST_METHOD'] === 'POST'&& isset($_POST['hide'])){
+            $hide = true;
 
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exit'])) {
             (new userController()) -> logout();

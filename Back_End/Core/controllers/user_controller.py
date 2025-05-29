@@ -27,30 +27,30 @@ async def login_user(credentials: Annotated[OAuth2PasswordRequestForm, Depends()
         if (user.user_hash_password == hash_password(credentials.password)):
             return {"access_token" : hash_token_user(user.id_user), "token_type" : "bearer"}
         else:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user or password.")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user or password")
     else:
-        return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorret user or password.")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorret user or password")
 
 
 @router_user.post("/register")
 async def register_user(register: User_Register):
     
     if await User_Manager.get_or_none(name_user=register.name) != None:
-        return {"Fail": True, "Result": "Usuário já existe"}
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="User already exists")
     
     registering = await User_Manager.create(
         name_user = register.name, 
         user_hash_password = register.password
         )
     
-    return {"Fail" : False, "Result" : registering}
+    return {"Result" : registering}
 
 
 @router_user.get("/users")
 async def get_users(user_logon: Annotated[str, Depends(get_user_logon)]):
     users = await User_Manager.all()
     
-    return users
+    return {"Result": users}
 
 
 @router_user.put("/update")
@@ -58,10 +58,10 @@ async def update_user(user: Get_Name, update: User_Update):
     user_update = await User_Manager.get_or_none(name_user=user.search_user)
     
     if not user_update:
-        return {"Fail": True, "Result": "Usuário inválido"}
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid user")
     
     if await User_Manager.get_or_none(name_user=update.name_user) != None:
-        return {"Fail": True, "Result": "Usuário já existe"}
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="User already exists")
 
     if update.user_hash_password:
         update.user_hash_password = (hash_password(update.user_hash_password))
@@ -71,15 +71,15 @@ async def update_user(user: Get_Name, update: User_Update):
     
     await user_update.save()
     
-    return {'Fail': False, "Result" : user_update}
+    return {"Result" : user_update}
 
 @router_user.delete("/delete")
 async def delete_user(id: Get_Id, user_logon: Annotated[str, Depends(get_user_logon)]):
     deleted = await User_Manager.get_or_none(id_user = id.id)
     
     if not deleted:
-        return {"Fail": True, "Result": "Usuário não encontrado."}
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="User not found")
     
     await User_Manager.filter(id_user = id.id).delete()
     
-    return {"Fail": False, "Result": deleted}
+    return {"Result": deleted}
