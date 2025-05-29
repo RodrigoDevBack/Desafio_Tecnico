@@ -10,6 +10,8 @@ function transform_getAll(){
         foreach($projects_brute as $projet){
             $date = "Date: ". substr($projet["created_at"], 0, 10);
             $hour = "Time: ". substr( $projet["created_at"], 11, 8). " - ";
+
+            $projects_forming[$count]['id'] = $projet["id"];
             $projects_forming[$count]['Id'] = "Id: ".$projet["id"]. "<br>";
             $projects_forming[$count]['Name'] = "Name: ".$projet["name"]. "<br>";
             $projects_forming[$count]['Description'] = "Description: ".$projet["description"]. "<br>";

@@ -24,7 +24,7 @@ class projectController{
             createProject($name, $description, $status);
 
         } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['get_one'])){
-            $get = $_POST['id'];
+            $get = (int)$_POST['id'];
             $_SESSION['ID'] = $get;
             $response = getOne($get);
 
