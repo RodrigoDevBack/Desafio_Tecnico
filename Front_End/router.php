@@ -37,10 +37,3 @@ switch($uri){
         break;
 }
 
-
-
-//if($uri === '/' || $uri === '/index.php'){
-//    (new userController()) ->login();
-//} else if ($uri === '/front_end/Front_End/views/user/update.tpl.php') {
-//    (new userController()) -> update();
-//}
