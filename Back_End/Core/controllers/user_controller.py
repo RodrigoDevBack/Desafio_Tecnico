@@ -12,6 +12,8 @@ from ..security import hash_password, hash_token_user
 
 from ..depends.user import get_user_logon
 
+from ...Schemas.responses.responses_user import User_Response
+
 
 
 router_user = APIRouter(
@@ -32,7 +34,7 @@ async def login_user(credentials: Annotated[OAuth2PasswordRequestForm, Depends()
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorret user or password")
 
 
-@router_user.post("/register")
+@router_user.post("/register", response_model=User_Response)
 async def register_user(register: User_Register):
     
     if await User_Manager.get_or_none(name_user=register.name) != None:
@@ -43,17 +45,19 @@ async def register_user(register: User_Register):
         user_hash_password = register.password
         )
     
-    return {"Result" : registering}
-
-
-@router_user.get("/users")
-async def get_users(user_logon: Annotated[str, Depends(get_user_logon)]):
-    users = await User_Manager.all()
+    registering = await User_Manager.get(name_user= register.name).prefetch_related("projects")
     
-    return {"Result": users}
+    return registering
 
 
-@router_user.put("/update")
+@router_user.get("/users", response_model=list[User_Response])
+async def get_users(user_logon: Annotated[str, Depends(get_user_logon)]):
+    users = await User_Manager.all().prefetch_related("projects")
+    
+    return users
+
+
+@router_user.put("/update", response_model=User_Response)
 async def update_user(user: Get_Name, update: User_Update):
     user_update = await User_Manager.get_or_none(name_user=user.search_user)
     
@@ -71,15 +75,18 @@ async def update_user(user: Get_Name, update: User_Update):
     
     await user_update.save()
     
-    return {"Result" : user_update}
+    user_update = await User_Manager.get(id_user= user_update.id_user).prefetch_related("projects")
+    
+    return user_update
 
-@router_user.delete("/delete")
+
+@router_user.delete("/delete", response_model=User_Response)
 async def delete_user(id: Get_Id, user_logon: Annotated[str, Depends(get_user_logon)]):
-    deleted = await User_Manager.get_or_none(id_user = id.id)
+    deleted = await User_Manager.get_or_none(id_user = id.id).prefetch_related("projects")
     
     if not deleted:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="User not found")
     
     await User_Manager.filter(id_user = id.id).delete()
     
-    return {"Result": deleted}
+    return deleted

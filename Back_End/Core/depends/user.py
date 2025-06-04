@@ -29,5 +29,5 @@ async def get_user_logon(hash_token: Annotated[str, Depends(reusable_oauth2)]):
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not exists")
     
-    return "Opa"
+    return int(user.id_user)
         
