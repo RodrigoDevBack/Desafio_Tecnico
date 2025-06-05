@@ -12,31 +12,45 @@ class projectController{
     public function home(){
         session_start();
 
+        
         if (!isset($_SESSION['logon'])) {
             (new userController()) -> logout();
         }
 
+        $nameUser = $_SESSION["nameUser"];
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Register'])){
             $name = $_POST['name'];
             $description = $_POST['description'];
             $status = $_POST['status'];
 
-            createProject($name, $description, $status);
+            $response = createProject($name, $description, $status);
+            if ($response) {
+                $result_created = "Project successfully created";
+            } else {
+                $error_created = "Project not created";
+            }
 
         } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['get_one'])){
             $get = (int)$_POST['id'];
             $_SESSION['ID'] = $get;
             $response = getOne($get);
 
-            if(!$response['Fail']){
-                $_SESSION['one_project'] = getOne($get)['Result'];
+            if($response){
+                $_SESSION['one_project'] = getOne($get);
                 header('Location: /project/edition.tpl.php');
                 exit;
             } else {
-                $error = "Projeto não encontrado";
+                $error = "Project not found";
             }
         } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['show_all'])){
-            $projects = transform_getAll();
+            $projects_verify = transform_getAll();
+            if ($projects_verify){
+                $projects = $projects_verify;
+            } else{
+                $projects_fail = "You have not created any projects";
+                $project = false;
+            }
 
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST'&& isset($_POST['hide'])){
             $hide = true;
@@ -82,7 +96,7 @@ class projectController{
             
         }
 
-        $project = transform_getOne(getOne($_SESSION['ID'])['Result']);
+        $project = transform_getOne(getOne($_SESSION['ID']));
         
         include __DIR__ . "/../views/project/edition.tpl.php";
     }  

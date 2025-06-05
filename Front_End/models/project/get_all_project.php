@@ -1,5 +1,6 @@
-<?php  
-function getAll(){
+<?php
+function getAll()
+{
     $url = "http://app:5000/Project/getall";
 
     $cURL = curl_init($url);
@@ -8,8 +9,11 @@ function getAll(){
 
     curl_setopt($cURL, CURLOPT_HTTPGET, true);
 
-    curl_setopt($cURL, CURLOPT_HTTPHEADER, [
-        'Authorization: Bearer '. $_SESSION['Hash']
+    curl_setopt(
+        $cURL,
+        CURLOPT_HTTPHEADER,
+        [
+            'Authorization: Bearer ' . $_SESSION['Hash']
         ]
     );
 
@@ -17,15 +21,12 @@ function getAll(){
 
     $response = json_decode($response, true);
 
-    if(curl_error($cURL)){
-        curl_close($cURL);
-
-        $response = curl_error($cURL);
-
-        return $response;
-    } else{
-        curl_close($cURL);
-        
-        return $response;
+    switch (curl_errno($cURL)) {
+        case 0:
+            curl_close($cURL);
+            return $response;
+        default:
+            curl_close($cURL);
+            return false;
     }
 }

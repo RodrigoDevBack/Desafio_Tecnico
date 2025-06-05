@@ -1,10 +1,11 @@
-<?php  
-function getOne(int $id){
+<?php
+function getOne(int $id)
+{
 
     $url = "http://app:5000/Project/getone";
 
     $data = ['id' => $id];
-    
+
     $json = json_encode($data);
 
     $cURL = curl_init($url);
@@ -15,10 +16,13 @@ function getOne(int $id){
 
     curl_setopt($cURL, CURLOPT_POSTFIELDS, $json);
 
-    curl_setopt($cURL, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json', 
-        'Context-Length: '. strlen($json),
-        'Authorization: Bearer '. $_SESSION['Hash']
+    curl_setopt(
+        $cURL,
+        CURLOPT_HTTPHEADER,
+        [
+            'Content-Type: application/json',
+            'Context-Length: ' . strlen($json),
+            'Authorization: Bearer ' . $_SESSION['Hash']
         ]
     );
 
@@ -26,5 +30,12 @@ function getOne(int $id){
 
     $response = json_decode($response, true);
 
-    return $response;
+    switch (curl_errno($cURL)) {
+        case 0:
+            curl_close($cURL);
+            return $response;
+        default:
+            curl_close($cURL);
+            return false;
+    }
 }

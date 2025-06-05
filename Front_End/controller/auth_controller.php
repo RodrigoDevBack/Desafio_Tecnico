@@ -18,6 +18,7 @@ class userController{
 
             if($response) {;
                 $_SESSION['logon'] = true;
+                $_SESSION['nameUser'] = $user;
                 header('Location: /../project/home.tpl.php');
                 exit;
             } else{

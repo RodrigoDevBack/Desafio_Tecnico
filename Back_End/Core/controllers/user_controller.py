@@ -27,18 +27,30 @@ async def login_user(credentials: Annotated[OAuth2PasswordRequestForm, Depends()
     
     if (user != None):
         if (user.user_hash_password == hash_password(credentials.password)):
-            return {"access_token" : hash_token_user(user.id_user), "token_type" : "bearer"}
+            return {
+                "access_token" : hash_token_user(user.id_user), 
+                "token_type" : "bearer"
+                }
         else:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user or password")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, 
+                detail="Invalid user or password"
+                )
     else:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorret user or password")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail="Incorret user or password"
+            )
 
 
 @router_user.post("/register", response_model=User_Response)
 async def register_user(register: User_Register):
     
     if await User_Manager.get_or_none(name_user=register.name) != None:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="User already exists")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+            detail="User already exists"
+            )
     
     registering = await User_Manager.create(
         name_user = register.name, 
@@ -62,15 +74,25 @@ async def update_user(user: Get_Name, update: User_Update):
     user_update = await User_Manager.get_or_none(name_user=user.search_user)
     
     if not user_update:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid user")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+            detail="Invalid user"
+            )
     
     if await User_Manager.get_or_none(name_user=update.name_user) != None:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="User already exists")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+            detail="User already exists"
+            )
 
     if update.user_hash_password:
         update.user_hash_password = (hash_password(update.user_hash_password))
 
-    data_update_user = update.model_dump(exclude_unset=True, exclude_defaults=True, exclude_none=True)
+    data_update_user = update.model_dump(
+        exclude_unset=True, 
+        exclude_defaults=True, 
+        exclude_none=True
+        )
     user_update.update_from_dict(data = data_update_user)
     
     await user_update.save()
@@ -85,8 +107,11 @@ async def delete_user(id: Get_Id, user_logon: Annotated[str, Depends(get_user_lo
     deleted = await User_Manager.get_or_none(id_user = id.id).prefetch_related("projects")
     
     if not deleted:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
+            detail="User not found"
+            )
     
-    await User_Manager.filter(id_user = id.id).delete()
+    await User_Manager.filter(id_user = id.id).prefetch_related("projects").delete()
     
     return deleted

@@ -27,12 +27,13 @@ function delete(int $Id){
 
     $response = json_decode($response, true);
 
-    if(!$response['Fail']){
 
-        return $response['Result'];
-    } else{
-        curl_close($cURL);
-
-        return false;
+    switch (curl_errno($cURL)) {
+        case 0:
+            curl_close($cURL);
+            return $response;
+        default:
+            curl_close($cURL);
+            return false;
     }
 }

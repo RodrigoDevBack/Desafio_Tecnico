@@ -30,9 +30,9 @@ async def create_project(createProject: Project_Create, idUser = Depends(get_use
     return project
 
 
-@router_project.get("/getall", response_model= User_Response)
+@router_project.get("/getall", response_model= list[Project_Response])
 async def get_projects(idUser = Depends(get_user_logon)):
-    projects = await User_Manager.get(id_user=idUser).prefetch_related("projects")
+    projects = await Project_Manager.filter(user = idUser)
     
     return projects
 
@@ -44,7 +44,8 @@ async def get_project(Id: Get_Id, idUser = Depends(get_user_logon)):
     if not project or not Get_Id:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Projeto não encontrado")
+            detail="Project not found"
+            )
     
     return project
 
@@ -56,9 +57,14 @@ async def update_project(Id: Get_Id, update_project: Project_Update, idUser = De
     if not project:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Projeto não encontrado")
+            detail="Project not found"
+            )
     
-    project_update = update_project.model_dump(exclude_unset=True, exclude_defaults=True, exclude_none=True)
+    project_update = update_project.model_dump(
+        exclude_unset=True, 
+        exclude_defaults=True, 
+        exclude_none=True
+        )
     project.update_from_dict(project_update)
     await project.save()
     
@@ -72,7 +78,8 @@ async def delete_project(Id: Get_Id, idUser = Depends(get_user_logon)):
     if not project:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Projeto não encontrado")
+            detail="Project not found"
+            )
     
     await Project_Manager.filter(user = idUser, id=Id.id).delete()
     

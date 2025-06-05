@@ -4,7 +4,7 @@ include __DIR__ . "/../project/get_all_project.php";
 
 function transform_getAll(){
     $projects_brute = getAll();
-    if(is_array($projects_brute)){
+    if(is_array($projects_brute) && count($projects_brute) > 0){
         $projects_forming = [[]];
         $count = 0;
         foreach($projects_brute as $projet){
@@ -21,6 +21,6 @@ function transform_getAll(){
         }
         return $projects_forming;
     }else{
-        return "Don't exists projects";
+        return false;
     };
 }

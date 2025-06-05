@@ -33,12 +33,13 @@
 
             <div class="mb-3">
                 <label class="form-label">Project_description</label><br>
-                <textarea type="text" class="form-control" name="description" placeholder="Description"> </textarea>
+                <textarea type="text" class="form-control" name="description" placeholder="Description"></textarea>
             </div> <br><br>
 
             <div class="mb-3">
                 <label class="form-label">Project_status</label><br>
-                <select name="status" class="form-select" id="status" required>
+                <select name="status" class="form-select" id="status">
+                    <option value="">--</option>
                     <option value="Iniciado">Iniciado</option>
                     <option value="pausado">Pausado</option>
                     <option value="Finalizado">Finalizado</option>

@@ -12,14 +12,22 @@ ACESS_TOKEN_EXPIRE_HOURS = 24
 def hash_token_user(subject: Union[str, Any]):
     expire = datetime.now(timezone.utc) + timedelta(hours=ACESS_TOKEN_EXPIRE_HOURS)
     to_encode = {"exp" : expire, "sub" : str(subject)}
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm = JWT_ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, 
+        SECRET_KEY, 
+        algorithm = JWT_ALGORITHM
+        )
     
     return encoded_jwt
     
 
 
 def hash_password(password):
-    password_hash = jws.sign({"key" : password}, "security", algorithm="HS256")
+    password_hash = jws.sign(
+        {"key" : password}, 
+        "security", 
+        algorithm="HS256"
+        )
     return password_hash
 
 def verify_password(hash_password):

@@ -11,12 +11,24 @@
 <body>
     <div class="container-fluid">
         <br>
-        <h1 class="container text-center">Project Control Panel</h1> <br>
+        <h1 class="container text-center">Welcome <?php echo $nameUser ?>!! Your Project Management Dashboard</h1> <br>
 
         <h2>Show Projects</h2>
+        <?php if (!empty($error)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $error ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($projects_fail)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $projects_fail?>
+            </div>
+        <?php endif; ?>
+        
         <div <?php if (isset($hide) && $hide) echo 'hidden'; ?> class="container mt-4">
             <div class="row g-4">
-                <?php if (isset($projects)) foreach ($projects as $project) : ?>
+                <?php if (isset($projects) && $projects) foreach ($projects as $project) : ?>
                     <div class="col-12 col-sm-6 col-md-4">
                         <div class="card p-4 shadow h-100">
                             <div class="card-body">
@@ -49,13 +61,20 @@
             <button type="submit" class="btn btn-secondary" name="hide">Hide Projects</button>
         </form> <br> <br>
 
-        <?php if (!empty($error)) : ?>
-            <div class="alert alert-danger" role="alert">
-                <?= $error ?>
+
+        <h2>Create Project</h2> <br>
+
+        <?php if (!empty($result_created)) : ?>
+            <div class="alert alert-success" role="alert">
+                <?= $result_created ?>
             </div>
         <?php endif; ?>
 
-        <h2>Create Project</h2> <br>
+        <?php if (!empty($error_created)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $error_created ?>
+            </div>
+        <?php endif; ?>
 
         <form method="post">
             <div class="mb-3">
@@ -65,12 +84,13 @@
 
             <div class="mb-3">
                 <label class="form-label">Project_description</label><br>
-                <textarea class="form-control" name="description" placeholder="Description" rows="3" required> </textarea><br>
+                <textarea class="form-control" name="description" placeholder="Description" rows="3"
+                    required></textarea><br>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Project_status</label><br>
-                <select name="status" class="form-select" aria-label="Default select example" id="status" required>
+                <select name="status" class="form-select" aria-label="Default select example" id="status">
                     <option value="Iniciado">Iniciado</option>
                     <option value="pausado">Pausado</option>
                     <option value="Finalizado">Finalizado</option>

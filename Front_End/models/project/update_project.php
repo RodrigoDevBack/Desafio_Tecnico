@@ -34,13 +34,12 @@ function updateProject(int $id, $name = null, $description = null, $status = nul
 
     $response = json_decode($response, true);
 
-    if(!$response['Fail']){
-        curl_close($cURL);
-
-        return $response['Result'];
-    } else{
-        curl_close($cURL);
-
-        return false;
+    switch (curl_errno($cURL)) {
+        case 0:
+            curl_close($cURL);
+            return $response;
+        default:
+            curl_close($cURL);
+            return false;
     }
 }

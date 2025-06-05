@@ -11,11 +11,11 @@
 <body>
     <div class="container-fluid">
         <br> <br>
-        <h1 class="container text-center">Página não econtrada</h1> <br> <br>
+        <h1 class="container text-center">Page not found</h1> <br> <br>
 
         <div class="container text-center">
             <form method="post">
-                <button class="btn btn-primary" name="start">Ir para a tela de login</button>
+                <button class="btn btn-primary" name="start">Go to login page</button>
             </form>
         </div>
 

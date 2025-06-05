@@ -30,13 +30,12 @@ function createProject(string $name, string $description, string $status){
 
     $response = json_decode($response, true);
 
-    if(curl_error($cURL)){
-        curl_close($cURL);
-
-        return $response;
-    } else{
-        curl_close($cURL);
-
-        return $response;
+    switch (curl_errno($cURL)) {
+        case 0:
+            curl_close($cURL);
+            return $response;
+        default:
+            curl_close($cURL);
+            return false;
     }
 }
