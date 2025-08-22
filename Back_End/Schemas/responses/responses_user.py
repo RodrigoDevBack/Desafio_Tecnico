@@ -1,16 +1,17 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 class Project_Response(BaseModel):
-    id: int
-    name: str
-    description: str
-    status: str
-    created_at: datetime
+    id: Optional[int]
+    name: Optional[str]
+    description: Optional[str]
+    status: Optional[str]
+    image_link: Optional[str] 
+    created_at: Optional[datetime]
     
     class Config:
-        orm_mode = True
+        from_attributes = True
         json_encoders = {
             datetime: lambda v: v.isoformat(),
         }
@@ -22,6 +23,6 @@ class User_Response(BaseModel):
     projects: List[Project_Response]
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 

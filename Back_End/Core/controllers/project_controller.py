@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
+
+from typing import Optional
 
 from Back_End.Schemas.schema_project import Project_Create, Get_Id, Project_Update
 
@@ -8,7 +10,9 @@ from Back_End.Models.model_user import User_Manager
 
 from ..depends.user import get_user_logon
 
-from ...Schemas.responses.responses_user import User_Response, Project_Response
+from ...Schemas.responses.responses_user import Project_Response
+
+from ..images_config.config import add_image
 
 router_project = APIRouter(
     tags=["Project"],
@@ -24,7 +28,21 @@ async def create_project(createProject: Project_Create, idUser = Depends(get_use
         name = createProject.name, 
         description = createProject.description, 
         status = createProject.status,
-        user = user
+        user = user,
+        )
+    
+    return project
+
+@router_project.post("/create-plus-image", response_model=Project_Response)
+async def create_project(name: str = Form(...), description: str = Form(...), status: str = Form(...), file: UploadFile = File(...), idUser = Depends(get_user_logon)):
+    user = await User_Manager.get(id_user=idUser)
+    url_image = add_image(user.name_user, file)
+    project = await Project_Manager.create(
+        name = name, 
+        description = description, 
+        status = status,
+        image_link = url_image,
+        user = user,
         )
     
     return project
@@ -46,6 +64,28 @@ async def get_project(Id: Get_Id, idUser = Depends(get_user_logon)):
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail="Project not found"
             )
+    
+    return project
+
+
+@router_project.put("/update-image", response_model=Project_Response)
+async def update_project(Id: int = Form(...), file: UploadFile = File(...), idUser = Depends(get_user_logon)):
+    project = await Project_Manager.get_or_none(user = idUser, id = Id)
+    user = await User_Manager.get(id_user=idUser)
+    
+    if not project:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Project not found"
+            )
+    
+    url_image = add_image(user.name_user, file)
+    
+    project_update = {
+        "image_link": url_image
+    }
+    project.update_from_dict(project_update)
+    await project.save()
     
     return project
 

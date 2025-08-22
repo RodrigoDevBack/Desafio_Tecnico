@@ -16,8 +16,9 @@ class Project_Update(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     status: Optional[str] = None
+    image_link: Optional[str] = None
     
-    @field_validator('name', 'description', 'status')
+    @field_validator('name', 'description', 'status', 'image_link')
     @classmethod
     def empty_string_to_none(cls, v):
         if v == "":

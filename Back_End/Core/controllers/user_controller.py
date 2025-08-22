@@ -14,6 +14,7 @@ from ..depends.user import get_user_logon
 
 from ...Schemas.responses.responses_user import User_Response
 
+from ..images_config.config import create_new_directory_user
 
 
 router_user = APIRouter(
@@ -27,6 +28,7 @@ async def login_user(credentials: Annotated[OAuth2PasswordRequestForm, Depends()
     
     if (user != None):
         if (user.user_hash_password == hash_password(credentials.password)):
+            create_new_directory_user(credentials.username)
             return {
                 "access_token" : hash_token_user(user.id_user), 
                 "token_type" : "bearer"
@@ -58,7 +60,7 @@ async def register_user(register: User_Register):
         )
     
     registering = await User_Manager.get(name_user= register.name).prefetch_related("projects")
-    
+    create_new_directory_user(register.name)
     return registering
 
 

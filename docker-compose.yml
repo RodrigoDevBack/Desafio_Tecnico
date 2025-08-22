@@ -7,6 +7,7 @@ services:
     depends_on:
       - db
     environment:
+      - AERICH_CONFIG=Back_End.Core.configDB.TORTOISE_ORM
       - DB_NAME=postgres
       - DB_PASSWORD=titan
       - DB_HOST=db

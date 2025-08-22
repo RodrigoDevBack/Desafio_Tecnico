@@ -1,0 +1,13 @@
+Regra de negócio: 
+         Haverá uma pasta com o nome "images_projects"
+         Cada usuário terá uma pasta com seu próprio nome. 
+         Cada arquivo terá modificação no nome, para evitar duplicata idêntica.
+         O usuário pode ou não adicionar uma imagem.
+         O usuário pode trocar a imaagem (A imagem no servidor será apagada)
+         O usuário pode apagar a foto do projeto (A imagem no servidor será apagada)
+         Se o usuário apagar o projeto a imagem será apagada
+         
+1 - Criar uma pasta para cada usuário - Armazenar suas fotos (Criar script para criar uma coluna sem sobreescrever o que já tenho no banco de dados)
+2 - Adicionar ao model do banco de dados uma coluna para armazenar a url da imagem
+3 - Adicionar ao model o envio da url 
+4 - Adicionar 
