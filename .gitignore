@@ -2,3 +2,5 @@
 venv
 *listar_tarefas.txt
 *.dockerignore
+tarefas.txt
+**images_projects
