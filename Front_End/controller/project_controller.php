@@ -87,7 +87,7 @@ class projectController{
             $status = $_POST['status'] ?? '';
             $image_file = $_FILES['file'] ?? '';
 
-            if (isset($image_file)){
+            if ($image_file['error'] === UPLOAD_ERR_OK){
                 $file_image = new CURLFile($image_file['tmp_name'], $image_file['type'], $image_file['name']);
                 updateProjectImage($id, $file_image);
             }
