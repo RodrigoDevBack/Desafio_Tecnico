@@ -33,7 +33,7 @@
                         <div class="card p-4 shadow h-100">
                             <div class="card-body">
                                 <figure class="figure">
-                                    <img class="figure-img img-fluid rounded" src="https://api.singlotown.com.br:5000/images_projects/<?php echo $nameUser?>/<?php echo $project['image_link']?>" alt="project_images">
+                                    <img class="figure-img img-fluid rounded" src="https://api.singlotown.com.br/images_projects/<?php echo $nameUser?>/<?php echo $project['image_link']?>" alt="project_images">
                                 </figure>
                                 <p><?php echo $project['Id']; ?></p>
                                 <p><?php echo $project['Name']; ?></p>

@@ -17,7 +17,7 @@
 
         <div class="card p-4 shadow h-100">
             <div class="card-body">
-                <img class="img-fluid" src="https://api.singlotown.com.br:5000/images_projects/<?php echo $_SESSION['nameUser']?>/<?php echo $project['image_link']?>" alt="image_project">
+                <img class="img-fluid" src="https://api.singlotown.com.br/images_projects/<?php echo $_SESSION['nameUser']?>/<?php echo $project['image_link']?>" alt="image_project">
             <br> <br>
             <p><?php echo $project['Id']; ?></p>
             <p><?php echo $project['Name']; ?></p>
