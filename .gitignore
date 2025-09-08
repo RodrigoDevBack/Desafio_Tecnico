@@ -4,3 +4,4 @@ venv
 *.dockerignore
 tarefas.txt
 Back_End/images_projects/*
+!Back_End/images_projects/.gitkeep
