@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 import os, shutil, time
+from pathlib import Path
 
 def configure_image(app: FastAPI):
-    app.mount("/images_projects", StaticFiles(directory="Back_End/images_projects"), name="/images_projects")
-
+    try:
+        app.mount("/images_projects", StaticFiles(directory="Back_End/images_projects"), name="/images_projects")
+    except:
+        Path("/Back_End/images_projects").mkdir(parents=False, exist_ok=True)
+        app.mount("/images_projects", StaticFiles(directory="Back_End/images_projects"), name="/images_projects")
+        
 def generate_new_name_image(filename):
     name, extension = os.path.splitext(filename)
     alteration = int(time.time())
