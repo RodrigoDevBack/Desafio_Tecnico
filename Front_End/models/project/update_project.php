@@ -1,6 +1,8 @@
 <?php
-function updateProject(int $id, $name = null, $description = null, $status = null){
+function updateProject(int $id, $name = null, $description = null, $status = null)
+{
     $url = "http://app:5000/Project/update";
+    #$url = "http://127.0.0.1:5000/Project/update";
 
     $data = [
         'Id' => [

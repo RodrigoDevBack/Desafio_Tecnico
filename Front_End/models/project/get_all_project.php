@@ -2,6 +2,7 @@
 function getAll()
 {
     $url = "http://app:5000/Project/getall";
+    #$url = "http://127.0.0.1:5000/Project/getall";
 
     $cURL = curl_init($url);
 

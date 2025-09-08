@@ -5,6 +5,8 @@ include __DIR__ . "/../models/transform_data/trans_get_one.php";
 include __DIR__ . "/../models/project/create_project.php";
 include __DIR__ . "/../models/project/delete_project.php";
 include __DIR__ . "/../models/project/update_project.php";
+include __DIR__ . "/../models/project/update_project_image.php";
+include __DIR__ . "/../models/project/create_project_image.php";
 
 
 
@@ -23,8 +25,15 @@ class projectController{
             $name = $_POST['name'];
             $description = $_POST['description'];
             $status = $_POST['status'];
+            $image_file = $_FILES['image'] ?? null;
 
-            $response = createProject($name, $description, $status);
+            if ($image_file['error'] === UPLOAD_ERR_OK){
+                $file_image = new CURLFile($image_file['tmp_name'], $image_file['type'], $image_file['name']);
+                $response = createProjectImage($name, $description, $status, $file_image);
+            } else{
+                $response = createProject($name, $description, $status);
+            }
+
             if ($response) {
                 $result_created = "Project successfully created";
             } else {
@@ -76,6 +85,12 @@ class projectController{
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $status = $_POST['status'] ?? '';
+            $image_file = $_FILES['file'] ?? '';
+
+            if (isset($image_file)){
+                $file_image = new CURLFile($image_file['tmp_name'], $image_file['type'], $image_file['name']);
+                updateProjectImage($id, $file_image);
+            }
 
             updateProject($id, $name,  $description,  $status);
 

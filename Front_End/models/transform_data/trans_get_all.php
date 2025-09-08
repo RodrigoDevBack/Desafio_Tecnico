@@ -17,6 +17,7 @@ function transform_getAll(){
             $projects_forming[$count]['Description'] = "Description: ".$projet["description"]. "<br>";
             $projects_forming[$count]['Status'] = "Status: ".$projet["status"]. "<br>";
             $projects_forming[$count]['Created_at'] = "Created_at: " . $hour . $date ."<br> <br>";
+            $projects_forming[$count]['image_link'] = $projet['image_link'];
             $count++;
         }
         return $projects_forming;

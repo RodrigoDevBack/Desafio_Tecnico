@@ -17,9 +17,9 @@ async def lifespan(app: FastAPI):
     yield
     await Tortoise.close_connections()
 
-#f"postgres://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+# f"postgres://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 
-#f"postgres://postgres:titan@127.0.0.1:5432/postgres"
+# f"postgres://postgres:titan@127.0.0.1:5432/postgres"
 
 
 TORTOISE_ORM = {

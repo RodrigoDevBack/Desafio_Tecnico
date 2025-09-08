@@ -2,6 +2,7 @@
 
 function loginUser($user, $password) {
     $url = "http://app:5000/user/login";
+    #$url = "http://127.0.0.1:5000/user/login";
 
     $data = [
         "username" => $user,

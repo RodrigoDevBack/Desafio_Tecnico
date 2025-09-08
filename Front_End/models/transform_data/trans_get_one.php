@@ -12,5 +12,6 @@ function transform_getOne($dict){
     $project['Description'] = "Description: ".$project_brute["description"]. "<br>";
     $project['Status'] = "Status: ".$project_brute["status"]. "<br>";
     $project['Created_at'] = "Created_at: " . $hour . $date ."<br> <br>";
+    $project['image_link'] = $project_brute['image_link'];
     return $project;
 }

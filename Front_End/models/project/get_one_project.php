@@ -1,8 +1,8 @@
 <?php
 function getOne(int $id)
 {
-
     $url = "http://app:5000/Project/getone";
+    #$url = "http://127.0.0.1:5000/Project/getone";
 
     $data = ['id' => $id];
 

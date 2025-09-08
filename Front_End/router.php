@@ -26,7 +26,7 @@ switch($uri){
         break;
 
     case "/project/home.tpl.php":
-        (new projectController() -> home());
+        (new projectController()) -> home();
         break;
     
     case "/project/edition.tpl.php":

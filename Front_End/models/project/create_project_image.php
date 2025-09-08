@@ -1,33 +1,33 @@
 <?php
-function delete(int $Id){
-    $url="http://app:5000/Project/delete";
-    #$url="http://127.0.0.1:5000/Project/delete";
-
+function createProjectImage(string $name, string $description, string $status, $file_path){
+    $url = "http://app:5000/Project/create-plus-image";
+    #$url = "http://127.0.0.1:5000/Project/create-plus-image";
+    
     $data = [
-        'id' => $Id,
+        'name' => $name,
+        'description' => $description,
+        'status' => $status,
+        'file' => $file_path,
     ];
 
-    $json = json_encode($data);
 
     $cURL = curl_init($url);
 
-    curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
-    
-    curl_setopt($cURL, CURLOPT_CUSTOMREQUEST, "DELETE");
 
-    curl_setopt($cURL, CURLOPT_POSTFIELDS, $json);
+    curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($cURL, CURLOPT_POST, true);
+
+    curl_setopt($cURL, CURLOPT_POSTFIELDS, $data);
 
     curl_setopt($cURL, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json', 
-        'Content-length'. strlen($json),
         'Authorization: Bearer '. $_SESSION['Hash']
-        ]
+        ] 
     );
 
     $response = curl_exec($cURL);
 
     $response = json_decode($response, true);
-
 
     switch (curl_errno($cURL)) {
         case 0:

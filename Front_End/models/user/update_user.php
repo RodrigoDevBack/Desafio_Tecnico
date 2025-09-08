@@ -1,6 +1,7 @@
 <?php
 function updateUser($user, $new_name = null,  $password = null) {
     $url = "http://app:5000/user/update";
+    #$url = "http://127.0.0.1:5000/user/update";
 
     $data = [
         'user' => [
